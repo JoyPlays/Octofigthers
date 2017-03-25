@@ -7,6 +7,8 @@ public class LegAndParts : MonoBehaviour
     bool disabled;
     float PartsHealth = 20;
     float DamageWillTake = 5;
+    public bool Active;
+    public float StunTimeOut = 1;
 
     void Start()
     {
@@ -19,12 +21,29 @@ public class LegAndParts : MonoBehaviour
         {
             //Debug.Log("Pressed left click.");
             Manager OctoManager = new Manager();
-            if (OctoManager.IsUnderMouse(gameObject))
+            //if (OctoManager.IsUnderMouse(gameObject) && gameObject.name != "head" && Global.OctoStunned)
+            //{
+            //    PartsHealth -= DamageWillTake;
+
+            //}
+
+            //if (OctoManager.IsUnderMouse(gameObject) && !Global.OctoStunned && Global.OctoAttacking)
+            //{
+            //Global.OctoStunned = true;
+            //call gesture
+
+            //}
+
+            //ja uzspiez
+            if (Active && OctoManager.IsUnderMouse(gameObject))
             {
-                PartsHealth -= DamageWillTake;
-                //Debug.Log("ATACKED");
+                //animacija
 
+                //cancels health loss and stuns if gesture ok
+                //StunTimeOut = 2;
+                //StartCoroutine("GestureTimeOut");
 
+                StartCoroutine("GestureTimeOut");
             }
 
         }
@@ -33,6 +52,21 @@ public class LegAndParts : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+    }
+
+    //IEnumerator GestureTimeOut()
+    //{
+    //    yield return new WaitForSeconds(2f);
+
+    //}
+
+    IEnumerator GestureTimeOut()
+    {
+        Octupus.stuned = true;
+
+        yield return new WaitForSeconds(2f);//pause or interuption
+
+        Octupus.stuned = false;
     }
 
 }

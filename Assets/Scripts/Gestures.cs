@@ -17,29 +17,32 @@ public class Gestures : MonoBehaviour
 
     void FixedUpdate()
     {
-        //for first point
-        if (Input.GetMouseButtonDown(0))
+        if (Global.MyPause == true)
         {
-            LastMousePosition = Input.mousePosition;
-            //Debug.Log("LastMousePosition: " + LastMousePosition);
-        }
+            //for first point
+            if (Input.GetMouseButtonDown(0))
+            {
+                LastMousePosition = Input.mousePosition;
+                //Debug.Log("LastMousePosition: " + LastMousePosition);
+            }
 
-        //
-        if (Input.GetMouseButton(0))
-        {
-            CurrentMousePosition = Input.mousePosition;
-            //Debug.Log("CurrentMousePosition: " + CurrentMousePosition);
-            VectorStuff();
+            //
+            if (Input.GetMouseButton(0))
+            {
+                CurrentMousePosition = Input.mousePosition;
+                //Debug.Log("CurrentMousePosition: " + CurrentMousePosition);
+                VectorStuff();
 
-            LastMousePosition = CurrentMousePosition;
+                LastMousePosition = CurrentMousePosition;
 
-        }
+            }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            //clear all
-            TotalAngle = 0;
+            if (Input.GetMouseButtonUp(0))
+            {
+                //clear all
+                TotalAngle = 0;
 
+            }
         }
     }
 

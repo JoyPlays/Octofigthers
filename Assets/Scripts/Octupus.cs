@@ -11,8 +11,9 @@ public class Octupus : MonoBehaviour
     public Player Player;
     public List<LegAndParts> LegsAndHead;
 	public Animator octopusAnim;
+    public float StunTimer;
 
-    bool stuned;
+    public static bool stuned; 
     public float StunPeriod;
 
     float AttackInterval;
@@ -56,7 +57,12 @@ public class Octupus : MonoBehaviour
         {
             //TimeAfterLatAttack = Time.time + StunPeriod;//just ads wait time
             //stuned = false;
-
+            TimeAfterLatAttack = Time.time;
+            StunTimer -= 1 * Time.deltaTime;
+            if (StunTimer <= 0)
+            {
+                stuned = false;
+            }
         }
     }
 
@@ -72,16 +78,40 @@ public class Octupus : MonoBehaviour
             AttackingLeg = Random.Range(0, LegCount + 1);//+1 because of head;
         }
 
-        int tempTrigger = AttackingLeg + 1;
-        octopusAnim.SetTrigger("Attack" + tempTrigger);
+        foreach (LegAndParts Leg in LegsAndHead)
+        {
+            Leg.Active = false;
+        }
+
+        LegsAndHead[AttackingLeg].Active = true;
+
+
+        //original place
+        //int tempTrigger = AttackingLeg + 1;
+        //octopusAnim.SetTrigger("Attack" + tempTrigger);
     }
 
     public void attack()
     {
+        int tempTrigger = AttackingLeg + 1;
+        octopusAnim.SetTrigger("Attack" + tempTrigger);
+
+        Global.OctoAttacking = true;//?
+
+        //get gesture, pause
+
+
+        //if gesture failed
         Player.GetComponent<Player>().Health -= Damage;
         Debug.Log("Attack jhealth left: " + Player.GetComponent<Player>().Health);
     }
 
-
+    public void functionFade()
+    {
+        //for (var f = 1.0; f >= 0; f -= 0.1)
+        //{
+        //    yield;
+        //}
+    }
 
 }
