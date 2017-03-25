@@ -11,10 +11,8 @@ public class Octupus : MonoBehaviour
     public Player Player;
     public List<LegAndParts> LegsAndHead;
 	public Animator octopusAnim;
-    public float StunTimer;
-
-    public static bool stuned; 
-    public float StunPeriod;
+	public Animator UIAnimator;	public float StunTimer;
+	public UILogic uiLogic;	public static bool stuned;     public float StunPeriod;
 
     float AttackInterval;
     float TimeAfterLatAttack;
@@ -93,18 +91,24 @@ public class Octupus : MonoBehaviour
 
     public void attack()
     {
-        int tempTrigger = AttackingLeg + 1;
+		if (!Player.Shield)
+		{
+			Player.Health -= Damage;
+		}
+		else
+		{
+			Debug.Log("Triggeeeeereererere");
+			UIAnimator.SetTrigger("Shield");
+			Player.Shield = false;
+		}
+		uiLogic.PlayerHit();
+        Debug.Log("Attack jhealth left: " + Player.Health);		int tempTrigger = AttackingLeg + 1;
         octopusAnim.SetTrigger("Attack" + tempTrigger);
 
         Global.OctoAttacking = true;//?
 
         //get gesture, pause
-
-
-        //if gesture failed
-        Player.GetComponent<Player>().Health -= Damage;
-        Debug.Log("Attack jhealth left: " + Player.GetComponent<Player>().Health);
-    }
+		}
 
     public void functionFade()
     {

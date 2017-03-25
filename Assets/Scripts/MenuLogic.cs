@@ -10,13 +10,13 @@ public class MenuLogic : MonoBehaviour
 
 	public void StartGame()
 	{
-		audioManager.StopMusic();
-		SceneManager.LoadScene("WorldMap");
+		//audioManager.StopMusic();
+		SceneManager.LoadScene("Game");
 	}
 
 	public void ReturnToMainMenu()
 	{
-		SceneManager.LoadScene("MainMenu");
+		SceneManager.LoadScene("MainMenuScene");
 	}
 
 	public void QuitGame()

@@ -5,12 +5,12 @@ using UnityEngine;
 public class LegAndParts : MonoBehaviour
 {
     bool disabled;
-    float PartsHealth = 20;
+    public float PartsHealth = 15;
     float DamageWillTake = 5;
     public bool Active;
     public float StunTimeOut = 1;
 
-    void Start()
+	void Start()
     {
 
     }
