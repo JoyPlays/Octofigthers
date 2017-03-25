@@ -10,6 +10,7 @@ public class Octupus : MonoBehaviour
     public int LegCount;
     public Player Player;
     public List<LegAndParts> LegsAndHead;
+	public Animator octopusAnim;
 
     bool stuned;
     public float StunPeriod;
@@ -33,16 +34,16 @@ public class Octupus : MonoBehaviour
             if ((Time.time - TimeAfterLatAttack) > AttackInterval)
             {
                 //reset scale
-                foreach (LegAndParts Leg in LegsAndHead)
-                {
-                    Leg.transform.localScale = new Vector3(1, 1, 1);
-                }
+                //foreach (LegAndParts Leg in LegsAndHead)
+                //{
+                //    Leg.transform.localScale = new Vector3(1, 1, 1);
+                //}
 
                 //attack sequence starts 
                 TimeAfterLatAttack = Time.time;
 
                 //activate some animation
-                LegsAndHead[AttackingLeg].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                //LegsAndHead[AttackingLeg].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 
                 //execute attack
                 attack();
@@ -64,6 +65,9 @@ public class Octupus : MonoBehaviour
     {
         AttackInterval = Random.Range(AttackTimeMin, AttackTimeMax);
         AttackingLeg = Random.Range(0, LegCount + 1);//+1 because of head;
+		Debug.Log("Attacking Leg" + AttackingLeg);
+		int tempTrigger = AttackingLeg + 1;
+		octopusAnim.SetTrigger("Attack" + tempTrigger);
 
         while (!LegsAndHead[AttackingLeg].isActiveAndEnabled)
         {
