@@ -66,13 +66,14 @@ public class Octupus : MonoBehaviour
         AttackInterval = Random.Range(AttackTimeMin, AttackTimeMax);
         AttackingLeg = Random.Range(0, LegCount + 1);//+1 because of head;
 		//Debug.Log("Attacking Leg" + AttackingLeg);
-		int tempTrigger = AttackingLeg + 1;
-		octopusAnim.SetTrigger("Attack" + tempTrigger);
-
+		
         while (!LegsAndHead[AttackingLeg].isActiveAndEnabled)
         {
             AttackingLeg = Random.Range(0, LegCount + 1);//+1 because of head;
         }
+
+        int tempTrigger = AttackingLeg + 1;
+        octopusAnim.SetTrigger("Attack" + tempTrigger);
     }
 
     public void attack()
