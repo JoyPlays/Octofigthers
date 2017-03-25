@@ -21,7 +21,7 @@ public class LegAndParts : MonoBehaviour
             Manager OctoManager = new Manager();
             if (OctoManager.IsUnderMouse(gameObject))
             {
-                //PartsHealth -= DamageWillTake;
+                PartsHealth -= DamageWillTake;
                 //Debug.Log("ATACKED");
 
 
