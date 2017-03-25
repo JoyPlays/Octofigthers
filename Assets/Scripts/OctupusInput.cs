@@ -13,9 +13,16 @@ public class OctupusInput : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Pressed left click.");
+            //Debug.Log("Pressed left click.");
         }
 
-
+        //if (Input.touchCount > 0)
+        //{
+        //    Debug.Log("Tap");
+        //}
+        
     }
+
+
+
 }

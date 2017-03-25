@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
         if (Health <= 0)
         {
             //lose    
-            Debug.Log("GameOver");
+            //Debug.Log("GameOver");
 
             
         }

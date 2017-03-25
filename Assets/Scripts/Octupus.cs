@@ -9,39 +9,66 @@ public class Octupus : MonoBehaviour
     public float Damage;
     public int LegCount;
     public Player Player;
+    public List<LegAndParts> LegsAndHead;
 
     bool stuned;
-    float StunPeriod;
+    public float StunPeriod;
 
     float AttackInterval;
     float TimeAfterLatAttack;
+    int AttackingLeg;
     
     void Start()
     {
-        AttackInterval = PrepareForAttack(AttackTimeMin, AttackTimeMax);//max exclusive9
+        //AttackInterval = PrepareForAttack();// (AttackTimeMin, AttackTimeMax);//max exclusive9
+        //AttackingLeg = PrepareForAttack();
+        PrepareForNextAttack();
     }
 
 	
 	void Update ()
     {
-        if ((Time.time - TimeAfterLatAttack) > AttackInterval)
-
+        if (!stuned)
         {
-            //attack sequence starts 
-            TimeAfterLatAttack = Time.time;
-            AttackInterval = PrepareForAttack(AttackTimeMin, AttackTimeMax);//max exclusive9
+            if ((Time.time - TimeAfterLatAttack) > AttackInterval)
+            {
+                //reset scale
+                foreach (LegAndParts Leg in LegsAndHead)
+                {
+                    Leg.transform.localScale = new Vector3(1, 1, 1);
+                }
 
-            //activate some animation
+                //attack sequence starts 
+                TimeAfterLatAttack = Time.time;
 
-            //execute attack
-            attack();
+                //activate some animation
+                LegsAndHead[AttackingLeg].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+
+                //execute attack
+                attack();
+
+                //after
+                PrepareForNextAttack();
+            }
+        }
+        else
+        {
+            //TimeAfterLatAttack = Time.time + StunPeriod;//just ads wait time
+            //stuned = false;
 
         }
     }
 
-    public float PrepareForAttack(float AttackTimeMin, float AttackTimeMax)
+    //public float PrepareForAttack(float AttackTimeMin, float AttackTimeMax)
+    public void PrepareForNextAttack()
     {
-        return Random.Range(AttackTimeMin, AttackTimeMax);
+        AttackInterval = Random.Range(AttackTimeMin, AttackTimeMax);
+        AttackingLeg = Random.Range(0, LegCount + 1);//+1 because of head;
+
+        while (!LegsAndHead[AttackingLeg].isActiveAndEnabled)
+        {
+            AttackingLeg = Random.Range(0, LegCount + 1);//+1 because of head;
+        }
     }
 
     public void attack()
