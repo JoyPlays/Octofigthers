@@ -62,6 +62,7 @@ public class Gestures : MonoBehaviour
     {
         //reset if gesture is done
         TotalAngle = 0;
+		Global.Gesture = true;
         Debug.Log("Circle");
     }
 }

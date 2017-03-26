@@ -28,7 +28,7 @@ public class Octupus : MonoBehaviour
 	
 	void Update ()
     {
-        if (!stuned)
+		if (Global.OctoAttacking)
         {
             if ((Time.time - TimeAfterLatAttack) > AttackInterval)
             {
@@ -45,10 +45,14 @@ public class Octupus : MonoBehaviour
                 //LegsAndHead[AttackingLeg].transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 
                 //execute attack
-                attack();
+				if (!stuned)
+				{
+					attack();
+					PrepareForNextAttack();
+				}
 
                 //after
-                PrepareForNextAttack();
+                
             }
         }
         else
@@ -75,13 +79,14 @@ public class Octupus : MonoBehaviour
         {
             AttackingLeg = Random.Range(0, LegCount + 1);//+1 because of head;
         }
+		LegsAndHead[AttackingLeg].Active = true;
 
-        foreach (LegAndParts Leg in LegsAndHead)
-        {
-            Leg.Active = false;
-        }
+		//foreach (LegAndParts Leg in LegsAndHead)
+       // {
+      //      Leg.Active = false;
+        //}
 
-        LegsAndHead[AttackingLeg].Active = true;
+        
 
 
         //original place
