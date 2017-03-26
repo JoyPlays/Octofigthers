@@ -27,7 +27,7 @@ public class Gestures : MonoBehaviour
             }
 
             //
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && Global.OctoStunned)
             {
                 CurrentMousePosition = Input.mousePosition;
                 //Debug.Log("CurrentMousePosition: " + CurrentMousePosition);

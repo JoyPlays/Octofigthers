@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class UILogic : MonoBehaviour {
 
-	public Image fadeToBlack;
+	public GameObject fadeToBlack;
 	public GameObject hitRed;
 	public GameObject loseScreen;
+	public GameObject winScreen;
 	public Animator uiAnimator;
 	public Animator Hero;
 
@@ -32,6 +33,7 @@ public class UILogic : MonoBehaviour {
 	public void Update()
 	{
 		HandleBar();
+		FadeToBlack();
 	} 
 
 	private float Map(float value, float inMin, float inMax, float outMin, float outMax)
@@ -46,12 +48,13 @@ public class UILogic : MonoBehaviour {
 
 	public void FadeToBlack()
 	{
-		Color tempColor = fadeToBlack.color;
-		float t = 5f;
-		while (t > 0)
+		if (Global.OctoStunned)
 		{
-			tempColor.a += 0.2f;
-			t -= Time.deltaTime;
+			fadeToBlack.SetActive(true);
+		}
+		else
+		{
+			fadeToBlack.SetActive(false);
 		}
 	}
 
@@ -78,6 +81,13 @@ public class UILogic : MonoBehaviour {
 		loseScreen.gameObject.SetActive(true);
 		uiAnimator.SetTrigger("Lose");
 	}
+
+	public void GameWon()
+	{
+		winScreen.gameObject.SetActive(true);
+		uiAnimator.SetTrigger("Win");
+	}
+
 
 	public void PlayerHit()
 	{

@@ -11,6 +11,10 @@ public class LegAndParts : MonoBehaviour
 	public bool Active;
 	public float StunTimeOut = 1;
 
+	public UILogic uiLogic;
+
+	int counter = 0;
+
 	bool tempCheck = false;
 
 	void Start()
@@ -62,7 +66,13 @@ public class LegAndParts : MonoBehaviour
         if (PartsHealth <= 0)
         {
             gameObject.SetActive(false);
-        }
+			counter++;
+			if (counter >= 8)
+			{
+				uiLogic.GameWon();
+			}
+			Octupus.stuned = false;
+		}
     }
 
     //IEnumerator GestureTimeOut()
@@ -77,6 +87,7 @@ public class LegAndParts : MonoBehaviour
 		Debug.Log("Starting Gesture Timeout");
 		Global.OctoAttacking = false;
         Global.OctoStunned = true;
+		Debug.Log("Octo Stunned: " + Global.OctoStunned);
 		while (Global.OctoStunned)
 		{
 			Debug.Log("Waiting for input gesture");
@@ -86,6 +97,7 @@ public class LegAndParts : MonoBehaviour
 				Global.OctoStunned = false;
 				Global.OctoAttacking = true;
 				ActiveCour = false;
+				
 			}
 			yield return null;
 		}
@@ -106,6 +118,7 @@ public class LegAndParts : MonoBehaviour
 			Debug.Log("Gesture was INPUTED --------------------- HORRAYYYY NO DAMAGE RECEIVED AND ENEMY STUNNED");
 			Global.OctoAttacking = true;
 			Octupus.stuned = true;
+			Global.Gesture = false;
 		}
 		Debug.Log("-------------- RESET STUN TO FALSE BECAUSE OF NO GESTURE INPUT --------------");
 		ActiveCour = false;
